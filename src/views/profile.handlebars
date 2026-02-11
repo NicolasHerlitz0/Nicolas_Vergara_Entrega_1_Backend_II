@@ -1,0 +1,38 @@
+<div class="box" id="profile-box">
+  <h3>Perfil</h3>
+  <div id="profile-data">Cargando...</div>
+  <button id="button-logout" class="button">Cerrar sesión</button>
+</div>
+<script src="/js/auth.js"></script>
+<script>
+
+  async function loadProfile() {
+    try {
+      const res = await fetch('/api/sessions/current', {
+        headers: { 'Authorization': 'Bearer ' + getToken() }
+      });
+      if (!res.ok) return window.location.href = '/login';
+      const data = await res.json();
+      const u = data.user;
+      document.getElementById('profile-data').innerHTML = `
+        <p>ID: ${u.id}</p>
+        <p>Nombre: ${u.first_name}</p>
+        <p>Apellido: ${u.last_name}</p>
+        <p>Email: ${u.email}</p>
+        <p>Edad: ${u.age}</p>
+        <p>Role: ${u.role}</p>
+      `;
+    } catch (e) {
+      removeToken();
+      window.location.href = '/login';
+    }
+  }
+
+  document.getElementById('button-logout').addEventListener('click', async () => {
+    await fetch('/api/sessions/logout', { method: 'POST' });
+    removeToken();
+    window.location.href = '/login';
+  });
+
+  loadProfile();
+</script>
