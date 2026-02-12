@@ -146,6 +146,7 @@ if (typeof BroadcastChannel !== "undefined") {
     }
   };
 }
+  
 
 document.addEventListener("DOMContentLoaded", () => {
   setTimeout(startSessionChecker, 2000);

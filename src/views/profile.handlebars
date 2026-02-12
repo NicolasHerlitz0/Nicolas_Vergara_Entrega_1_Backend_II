@@ -1,3 +1,4 @@
+<!-- NUEVOv2 - Perfil de Usuario -->
 <div class="box" id="profile-box">
   <h3>Perfil</h3>
   <div id="profile-data">Cargando...</div>
@@ -5,7 +6,7 @@
 </div>
 <script src="/js/auth.js"></script>
 <script>
-
+  // NUEVOv2 - cargar datos de perfil
   async function loadProfile() {
     try {
       const res = await fetch('/api/sessions/current', {

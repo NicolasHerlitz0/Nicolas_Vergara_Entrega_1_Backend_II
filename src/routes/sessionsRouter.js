@@ -169,7 +169,6 @@ router.delete("/user/:uid", async (req, res) => {
 // Temporal para obtener todos los usuarios (solo para desarrollo)
 router.get("/users", async (req, res) => {
   try {
-    // En una implementación real, esto debería tener autenticación de admin
     const users = await UserManager.getAllUsers();
     res.json({ status: "success", payload: users });
   } catch (error) {

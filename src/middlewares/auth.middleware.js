@@ -1,5 +1,5 @@
 import passport from "passport";
-//import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
 
 export const authenticateJWT = (req, res, next) => {
   passport.authenticate("jwt", { session: false }, (err, user, info) => {
