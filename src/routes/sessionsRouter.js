@@ -118,7 +118,7 @@ router.get("/current", (req, res, next) => {
             last_name: fullUser.last_name,
             email: fullUser.email,
             age: fullUser.age,
-            cart: fullUser.cart,
+            cart: fullUser.cart ? fullUser.cart._id?.toString() || fullUser.cart.toString() : null,
             role: fullUser.role,
           },
         });

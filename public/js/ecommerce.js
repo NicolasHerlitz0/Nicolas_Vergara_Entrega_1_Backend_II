@@ -45,21 +45,38 @@ async function addToCart(pid) {
 
   let cartId = localStorage.getItem("cartId");
 
+  
+
   if (!cartId) {
-    const createCartResponse = await fetch("/api/carts", {
-      method: "POST",
-      credentials: "include",
-    });
-
-    const createCart = await createCartResponse.json();
-
-    if (createCart.status === "error") {
-      return alert(createCart.message);
+    
+        try {
+      const userResponse = await fetch('/api/sessions/current', {
+        credentials: 'include'
+      });
+      
+      if (userResponse.ok) {
+        const userData = await userResponse.json();
+        cartId = userData.user.cart; 
+      }
+    } catch (error) {
+      console.error('Error obteniendo usuario:', error);
     }
 
-    console.log(createCart);
+    if (!cartId) {
+      const createCartResponse = await fetch("/api/carts", {
+        method: "POST",
+        credentials: "include",
+      });
 
-    cartId = createCart.payload._id;
+      const createCart = await createCartResponse.json();
+
+      if (createCart.status === "error") {
+        return alert(createCart.message);
+      }
+
+      cartId = createCart.payload._id;
+    }
+    
     localStorage.setItem("cartId", cartId);
   }
 
